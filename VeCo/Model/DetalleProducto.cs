@@ -1,9 +1,8 @@
-﻿namespace VeCo.Clases
+﻿namespace VeCo.Model
 {
     public class DetalleProducto
     {
-
-        public int Id{ get; set; }
+        public int Id { get; set; }
         public string Descripción { get; set; }
         public int Likes { get; set; }
         public int IdProducto { get; set; }

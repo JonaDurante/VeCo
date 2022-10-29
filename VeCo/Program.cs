@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using VeCo.DataBase;
+using VeCo.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Agrego context
-builder.Services.AddDbContext<VecoContext>(option => option.UseNpgsql(builder.Configuration.GetConnectionString("DataConnection")));
+builder.Services.AddDbContext<VecoContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DataConnection")));
 // -- Fin agregado
 
 var app = builder.Build();

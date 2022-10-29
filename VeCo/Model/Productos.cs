@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VeCo.Clases
+namespace VeCo.Model
 {
     public class Productos
     {
@@ -10,7 +10,6 @@ namespace VeCo.Clases
         public string Marca { get; set; }
         public string Imagen{ get; set; }
         public int IdDetalleProducto { get; set; }
-        public ICollection<Favoritos> Favoritos { get; set; }
     }
 }
     

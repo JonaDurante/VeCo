@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using VeCo.DataBase;
+using VeCo.Data;
 
 #nullable disable
 
@@ -18,263 +18,216 @@ namespace VeCo.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("FavoritosProductos", b =>
-                {
-                    b.Property<int>("FavoritosId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductosId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("FavoritosId", "ProductosId");
-
-                    b.HasIndex("ProductosId");
-
-                    b.ToTable("FavoritosProductos");
-                });
-
-            modelBuilder.Entity("FavoritosUsuarios", b =>
-                {
-                    b.Property<int>("FavoritosId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsuariosId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("FavoritosId", "UsuariosId");
-
-                    b.HasIndex("UsuariosId");
-
-                    b.ToTable("FavoritosUsuarios");
-                });
-
-            modelBuilder.Entity("VeCo.Clases.DetalleProducto", b =>
+            modelBuilder.Entity("VeCo.Model.DetalleProducto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Descripción")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdProducto")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int>("Likes")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("DetalleProducto");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Dolares", b =>
+            modelBuilder.Entity("VeCo.Model.Dolares", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("DolarBCRA")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DolarBancoNacion")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DolarBlue")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DolarMayorista")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DolarMinorista")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DolarOficial")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Dolares");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Favoritos", b =>
+            modelBuilder.Entity("VeCo.Model.Favoritos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Favoritos");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Precio", b =>
+            modelBuilder.Entity("VeCo.Model.Precio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("PrecioCompra")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PrecioUnidad")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Precio");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Productos", b =>
+            modelBuilder.Entity("VeCo.Model.Productos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("FavoritosId")
+                        .HasColumnType("int");
 
                     b.Property<int>("IdDetalleProducto")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("Imagen")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Marca")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("Stock")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FavoritosId");
+
                     b.ToTable("Productos");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Roles", b =>
+            modelBuilder.Entity("VeCo.Model.Roles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("NivelPermiso")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Usuarios", b =>
+            modelBuilder.Entity("VeCo.Model.Usuarios", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Apellido")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contrasena")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FavoritosId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaDeNacimiento")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdRoles")
+                        .HasColumnType("int");
 
                     b.Property<string>("Mail")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("RolesId")
-                        .HasColumnType("integer");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("FavoritosId");
 
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("FavoritosProductos", b =>
+            modelBuilder.Entity("VeCo.Model.Productos", b =>
                 {
-                    b.HasOne("VeCo.Clases.Favoritos", null)
-                        .WithMany()
-                        .HasForeignKey("FavoritosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VeCo.Clases.Productos", null)
-                        .WithMany()
-                        .HasForeignKey("ProductosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("VeCo.Model.Favoritos", null)
+                        .WithMany("Productos")
+                        .HasForeignKey("FavoritosId");
                 });
 
-            modelBuilder.Entity("FavoritosUsuarios", b =>
+            modelBuilder.Entity("VeCo.Model.Usuarios", b =>
                 {
-                    b.HasOne("VeCo.Clases.Favoritos", null)
-                        .WithMany()
-                        .HasForeignKey("FavoritosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VeCo.Clases.Usuarios", null)
-                        .WithMany()
-                        .HasForeignKey("UsuariosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("VeCo.Clases.Usuarios", b =>
-                {
-                    b.HasOne("VeCo.Clases.Roles", "Roles")
+                    b.HasOne("VeCo.Model.Favoritos", null)
                         .WithMany("Usuarios")
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Roles");
+                        .HasForeignKey("FavoritosId");
                 });
 
-            modelBuilder.Entity("VeCo.Clases.Roles", b =>
+            modelBuilder.Entity("VeCo.Model.Favoritos", b =>
                 {
+                    b.Navigation("Productos");
+
                     b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618

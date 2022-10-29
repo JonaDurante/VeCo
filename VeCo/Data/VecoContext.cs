@@ -1,19 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using VeCo.Clases;
+using VeCo.Model;
 
-namespace VeCo.DataBase
+namespace VeCo.Data
 {
     public class VecoContext : DbContext
     {
-        private const string connectionString = @"Data Source=NKO\SQLEXPRESS; Initial Catalog=VeCo; Integrated Security=True";
-
         public VecoContext(DbContextOptions<VecoContext> options) : base(options)
         {
 
         }
 
-        // Creo entidades con DbSet partiendo de las clases .cs 
+        // Creo entidades con DbSet partiendo de las Model .cs 
         public DbSet<DetalleProducto> DetalleProducto { get; set; }
         public DbSet<Dolares> Dolares { get; set; }
         public DbSet<Favoritos> Favoritos { get; set; }

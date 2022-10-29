@@ -1,4 +1,4 @@
-﻿namespace VeCo.Clases
+﻿namespace VeCo.Model
 {
     public class Precio
     {
